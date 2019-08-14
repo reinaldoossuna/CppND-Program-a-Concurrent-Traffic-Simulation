@@ -67,6 +67,10 @@ void Graphics::drawTrafficObjects()
     cv::addWeighted(_images.at(1), opacity, _images.at(0), 1.0 - opacity, 0, _images.at(2));
 
     // display background and overlay image
+    // OPENCV it's not so friedly with BSPWM
+    // I need to resize the windows
+    cv::namedWindow(_windowName, cv::WINDOW_NORMAL);
+    cv::resizeWindow(_windowName,300,300);
     cv::imshow(_windowName, _images.at(2));
     cv::waitKey(33);
 }
