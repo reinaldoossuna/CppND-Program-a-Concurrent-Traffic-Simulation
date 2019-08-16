@@ -1,7 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <vector>
-
+#include <algorithm>
 #include "Vehicle.h"
 #include "Street.h"
 #include "Intersection.h"
@@ -120,6 +120,7 @@ int main()
     std::string backgroundImg;
     int nVehicles = 6;
     createTrafficObjects_Paris(streets, intersections, vehicles, backgroundImg, nVehicles);
+    //createTrafficObjects_NYC(streets, intersections, vehicles, backgroundImg, nVehicles);
 
     /* PART 2 : simulate traffic objects */
 
