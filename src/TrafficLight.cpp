@@ -3,6 +3,7 @@
 #include <random>
 #include <future>
 #include "TrafficLight.h"
+#include <ctime>
 
 /* Implementation of class "MessageQueue" */
 
@@ -69,6 +70,7 @@ void TrafficLight::cycleThroughPhases()
     // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles.
     auto _timePast = std::chrono::high_resolution_clock::now();
     //random value between 4 and 6 secs
+    srand(time(NULL));
     auto cycle_duration = rand()% (6 - 4 + 1) + 4;
 
 
@@ -82,8 +84,7 @@ void TrafficLight::cycleThroughPhases()
         _currentPhase = _currentPhase == TrafficLightPhase::red ?
             TrafficLightPhase::green : TrafficLightPhase::red;
 
-
-        auto sent = std::async(std::launch::async, &MessageQueue<TrafficLightPhase>::send, queue, std::move(_currentPhase));
+        queue->send(std::move(_currentPhase));
 
         _timePast = _timeNow;
         cycle_duration = rand()% (6 - 4 + 1) + 4;

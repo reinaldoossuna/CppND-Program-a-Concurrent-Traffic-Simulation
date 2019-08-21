@@ -65,7 +65,6 @@ std::vector<std::shared_ptr<Street>> Intersection::queryStreets(std::shared_ptr<
             outgoings.push_back(it);
         }
     }
-
     return outgoings;
 }
 
@@ -85,6 +84,7 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle)
     ftrVehicleAllowedToEnter.wait();
     lck.lock();
     std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID() << " is granted entry." << std::endl;
+    lck.unlock();
 
     // FP.6b : use the methods TrafficLight::getCurrentPhase and TrafficLight::waitForGreen to block the execution until the traffic light turns green.
 
@@ -93,8 +93,6 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle)
       std::cout << "Waiting for Green light, like a nice citizen " << std::endl;
       _trafficLight.waitForGreen();
     }
-
-    lck.unlock();
 }
 
 void Intersection::vehicleHasLeft(std::shared_ptr<Vehicle> vehicle)
